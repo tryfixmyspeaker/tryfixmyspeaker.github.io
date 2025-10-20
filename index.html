@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="Fix My Speaker - Professional speaker cleaner tool to eject water, remove dust, and restore crystal-clear sound quality. Free online speaker cleaning solution.">
+    <meta name="keywords"
+        content="speaker cleaner, fix my speaker, water eject, speaker cleaner sound, clean my speaker, speaker dust cleaning sound, sound cleaner, call speaker cleaner">
+    <title>Fix My Speaker - Water Eject & Speaker Cleaner Tool</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="/" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8 10C8 8.89543 8.89543 8 10 8H12C13.1046 8 14 8.89543 14 10V22C14 23.1046 13.1046 24 12 24H10C8.89543 24 8 23.1046 8 22V10Z"
+                            fill="currentColor" />
+                        <path
+                            d="M16 12C16 10.8954 16.8954 10 18 10C20.7614 10 23 12.2386 23 15V17C23 19.7614 20.7614 22 18 22C16.8954 22 16 21.1046 16 20V12Z"
+                            fill="currentColor" />
+                    </svg>
+                    <span>TryFixMySpeaker</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="/#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="/#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="/about/" class="nav-link">About</a></li>
+                    <li><a href="/contact/" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section with Tool -->
+    <section id="home" class="hero-section">
+        <div class="container">
+            <div class="hero-content">
+                <h1 class="hero-title">Fix My Speaker Instantly</h1>
+                <p class="hero-subtitle">Remove water, dust & debris with sound wave technology. Restore crystal-clear
+                    audio quality in seconds.</p>
+            </div>
+
+            <!-- Speaker Cleaner Tool -->
+            <div class="tool-container">
+                <div class="tool-card">
+                    <div class="tool-header">
+                        <h2>🔊 Speaker Cleaner Tool</h2>
+                        <p>Select a mode and click play to start cleaning your speakers</p>
+                    </div>
+
+                    <!-- Mode Selection -->
+                    <div class="mode-selection">
+                        <button class="mode-btn active" data-mode="water">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                            </svg>
+                            <span>Eject Water</span>
+                        </button>
+                        <button class="mode-btn" data-mode="dust">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <circle cx="12" cy="12" r="6"></circle>
+                                <circle cx="12" cy="12" r="2"></circle>
+                            </svg>
+                            <span>Remove Dust</span>
+                        </button>
+                        <button class="mode-btn" data-mode="vibrate">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2">
+                                <path d="M2 8h20M2 16h20M6 4v16M10 4v16M14 4v16M18 4v16"></path>
+                            </svg>
+                            <span>Vibration Mode</span>
+                        </button>
+                    </div>
+
+                    <!-- Speaker Selection -->
+                    <div class="speaker-selection">
+                        <button class="speaker-btn active" data-speaker="both">
+                            <span>Both Speakers</span>
+                        </button>
+                        <button class="speaker-btn" data-speaker="left">
+                            <span>Left Speaker</span>
+                        </button>
+                        <button class="speaker-btn" data-speaker="right">
+                            <span>Right Speaker</span>
+                        </button>
+                    </div>
+
+                    <!-- Progress Bar -->
+                    <div class="progress-container">
+                        <div class="progress-bar">
+                            <div class="progress-fill" id="progressFill"></div>
+                        </div>
+                        <div class="progress-text">
+                            <span id="progressPercent">0%</span>
+                            <span id="statusText">Ready to clean</span>
+                        </div>
+                    </div>
+
+                    <!-- Control Buttons -->
+                    <div class="control-buttons">
+                        <button class="btn btn-primary" id="startBtn">
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M8 5v14l11-7z" />
+                            </svg>
+                            <span>Start Cleaning</span>
+                        </button>
+                        <button class="btn btn-secondary" id="stopBtn" disabled>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
+                                <rect x="6" y="6" width="12" height="12" />
+                            </svg>
+                            <span>Stop</span>
+                        </button>
+                    </div>
+
+                    <!-- Volume Warning -->
+                    <div class="warning-box">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <path
+                                d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z">
+                            </path>
+                            <line x1="12" y1="9" x2="12" y2="13"></line>
+                            <line x1="12" y1="17" x2="12.01" y2="17"></line>
+                        </svg>
+                        <p><strong>Important:</strong> Turn your device volume to maximum and place it on a flat surface
+                            for best results.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="stats-container">
+                <div class="stat-card">
+                    <div class="stat-number">500K+</div>
+                    <div class="stat-label">Speakers Fixed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">98%</div>
+                    <div class="stat-label">Success Rate</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">Free</div>
+                    <div class="stat-label">100% Free Tool</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">24/7</div>
+                    <div class="stat-label">Available Anytime</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- How It Works Section -->
+    <section id="how-it-works" class="content-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>How Does Speaker Cleaner Work?</h2>
+                <p>Understanding the science behind water eject and dust removal technology</p>
+            </div>
+
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-icon">🌊</div>
+                    <h3>Water Ejection Technology</h3>
+                    <p>Our speaker cleaner uses precisely calibrated sound frequencies (165Hz) to create powerful sound
+                        waves that vibrate your speaker's diaphragm. These vibrations generate enough force to push
+                        water droplets out of the speaker grille, similar to how Apple's water eject feature works on
+                        Apple Watch.</p>
+                    <p>The water eject process works by playing a specific tone that makes your speaker membrane
+                        oscillate rapidly, forcing moisture and liquid out through the speaker openings. This call
+                        speaker cleaner method is safe, effective, and doesn't require any physical intervention.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">💨</div>
+                    <h3>Dust Removal Process</h3>
+                    <p>The speaker dust cleaning sound operates at different frequencies (ranging from 200Hz to 8000Hz)
+                        to dislodge and remove dust particles, debris, and lint from your speaker grilles. These varying
+                        frequencies ensure comprehensive cleaning across all speaker components.</p>
+                    <p>When you clean my speaker using this sound cleaner technology, the acoustic vibrations shake
+                        loose accumulated dust without damaging sensitive components. It's like giving your speakers a
+                        sonic shower that reaches places physical cleaning can't.</p>
+                </div>
+
+                <div class="content-card">
+                    <div class="card-icon">📳</div>
+                    <h3>Vibration Enhancement</h3>
+                    <p>For stubborn water or dust that sound waves alone can't remove, our vibration mode combines
+                        haptic feedback with audio frequencies. This dual-action approach provides additional mechanical
+                        force to expel trapped moisture and particles.</p>
+                    <p>The vibration feature is particularly effective for devices that have been submerged or have
+                        significant water damage. It works in tandem with the speaker cleaner sound to maximize water
+                        ejection efficiency.</p>
+                </div>
+            </div>
+
+            <div class="step-by-step">
+                <h3>Step-by-Step Guide to Fix My Speaker</h3>
+                <div class="steps-container">
+                    <div class="step">
+                        <div class="step-number">1</div>
+                        <h4>Prepare Your Device</h4>
+                        <p>Wipe off any visible water droplets with a dry cloth. Turn your device volume to maximum
+                            level for optimal results.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">2</div>
+                        <h4>Place on Flat Surface</h4>
+                        <p>Position your device on a flat, stable surface with speakers facing down to help gravity
+                            assist the water eject process.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">3</div>
+                        <h4>Select Cleaning Mode</h4>
+                        <p>Choose "Eject Water" for moisture issues or "Remove Dust" for clarity problems. Select left,
+                            right, or both speakers based on which needs cleaning.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">4</div>
+                        <h4>Start the Process</h4>
+                        <p>Click "Start Cleaning" and wait for the progress bar to reach 100%. The speaker cleaner sound
+                            will play automatically.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">5</div>
+                        <h4>Use Vibration Mode</h4>
+                        <p>After the sound phase, switch to vibration mode for additional cleaning power. This helps
+                            remove any remaining water or debris.</p>
+                    </div>
+                    <div class="step">
+                        <div class="step-number">6</div>
+                        <h4>Test & Repeat</h4>
+                        <p>Test your speaker quality with music or a call. If sound is still muffled, repeat the process
+                            2-3 times for best results.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section id="benefits" class="benefits-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Our Speaker Fixer Tool?</h2>
+                <p>The most effective and user-friendly solution to clean my speaker and restore audio quality</p>
+            </div>
+
+            <div class="benefits-grid">
+                <div class="benefit-card">
+                    <div class="benefit-icon">💧</div>
+                    <h3>Instant Water Removal</h3>
+                    <p>Eject water from your speakers in seconds using scientifically proven sound wave technology. No
+                        rice bags or waiting required.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🎯</div>
+                    <h3>Precision Cleaning</h3>
+                    <p>Target specific speakers (left, right, or both) with customized frequencies designed for optimal
+                        dust and water removal.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📱</div>
+                    <h3>Universal Compatibility</h3>
+                    <p>Works with all devices - iPhone, Samsung, Android phones, tablets, laptops, and any device with
+                        speakers. No app download needed.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🔒</div>
+                    <h3>100% Safe</h3>
+                    <p>Our sound cleaner uses audio frequencies within safe ranges that won't damage your speakers or
+                        device components.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">⚡</div>
+                    <h3>Lightning Fast</h3>
+                    <p>Complete speaker cleaning in under 2 minutes. Fix my speaker issues instantly without trips to
+                        repair shops.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">💰</div>
+                    <h3>Completely Free</h3>
+                    <p>Professional-grade speaker cleaner tool at zero cost. No subscriptions, no hidden fees, no app
+                        purchases required.</p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">🌐</div>
+                    <h3>Works Offline</h3>
+                    <p>Once loaded, the page works without internet connection. Clean your speakers anywhere, anytime.
+                    </p>
+                </div>
+
+                <div class="benefit-card">
+                    <div class="benefit-icon">📳</div>
+                    <h3>Vibration Support</h3>
+                    <p>Enhanced cleaning with haptic vibration mode for stubborn water and debris that sound waves alone
+                        can't remove.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Use Cases Section -->
+    <section class="use-cases-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Common Speaker Problems We Solve</h2>
+                <p>Real-world scenarios where our speaker cleaner makes a difference</p>
+            </div>
+
+            <div class="use-cases-container">
+                <div class="use-case">
+                    <h3>🏊 Water Damage from Swimming/Rain</h3>
+                    <p>Dropped your phone in the pool or got caught in the rain? Our water eject technology quickly
+                        removes moisture that causes muffled sound and speaker distortion. The call speaker cleaner
+                        feature ensures your phone calls are crystal clear again.</p>
+                </div>
+
+                <div class="use-case">
+                    <h3>🚿 Bathroom Steam and Humidity</h3>
+                    <p>Using your phone in the bathroom or humid environments can cause water vapor to accumulate in
+                        speakers. Our speaker cleaner sound penetrates deep to clear out moisture buildup before it
+                        causes permanent damage.</p>
+                </div>
+
+                <div class="use-case">
+                    <h3>🧹 Pocket Lint and Dust</h3>
+                    <p>Everyday carry leads to dust, lint, and debris clogging your speaker grilles. The speaker dust
+                        cleaning sound targets these particles with precision frequencies, restoring full audio clarity
+                        without disassembly.</p>
+                </div>
+
+                <div class="use-case">
+                    <h3>☕ Liquid Spills</h3>
+                    <p>Spilled coffee, soda, or juice on your device? The sound cleaner helps expel sticky liquids that
+                        can permanently damage speakers if left untreated. Act fast and use our tool immediately after
+                        spills.</p>
+                </div>
+
+                <div class="use-case">
+                    <h3>🏖️ Beach Sand and Outdoor Debris</h3>
+                    <p>Sand particles and outdoor debris can severely impact speaker performance. Our multi-frequency
+                        approach dislodges even microscopic particles that traditional cleaning methods miss.</p>
+                </div>
+
+                <div class="use-case">
+                    <h3>📞 Muffled Phone Calls</h3>
+                    <p>Can't hear clearly during calls? Our call speaker cleaner specifically targets the earpiece
+                        speaker to remove obstructions affecting voice clarity. Essential for professionals who rely on
+                        phone communication.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Comparison Section -->
+    <section class="comparison-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Our Tool is Superior</h2>
+                <p>See how we compare to traditional speaker cleaning methods</p>
+            </div>
+
+            <div class="comparison-table">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Our Tool</th>
+                            <th>Rice Method</th>
+                            <th>Compressed Air</th>
+                            <th>Repair Shop</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Time Required</td>
+                            <td class="positive">2 minutes</td>
+                            <td class="negative">24-48 hours</td>
+                            <td class="neutral">10-15 minutes</td>
+                            <td class="negative">1-3 days</td>
+                        </tr>
+                        <tr>
+                            <td>Cost</td>
+                            <td class="positive">Free</td>
+                            <td class="neutral">~$2</td>
+                            <td class="neutral">$10-20</td>
+                            <td class="negative">$50-150</td>
+                        </tr>
+                        <tr>
+                            <td>Effectiveness</td>
+                            <td class="positive">98%</td>
+                            <td class="negative">30%</td>
+                            <td class="neutral">60%</td>
+                            <td class="positive">95%</td>
+                        </tr>
+                        <tr>
+                            <td>Risk of Damage</td>
+                            <td class="positive">None</td>
+                            <td class="neutral">Low</td>
+                            <td class="neutral">Medium</td>
+                            <td class="positive">Low</td>
+                        </tr>
+                        <tr>
+                            <td>Convenience</td>
+                            <td class="positive">Instant</td>
+                            <td class="negative">Requires waiting</td>
+                            <td class="neutral">Needs equipment</td>
+                            <td class="negative">Travel required</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section id="faq" class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Frequently Asked Questions</h2>
+                <p>Everything you need to know about our speaker cleaner</p>
+            </div>
+
+            <div class="faq-container">
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How does the speaker cleaner actually work?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our speaker cleaner uses precisely calibrated audio frequencies to create sound waves that
+                            vibrate your speaker membrane. These vibrations generate mechanical force that pushes water
+                            droplets and dust particles out through the speaker grilles. The water eject mode uses 165Hz
+                            frequency, while dust removal cycles through multiple frequencies for comprehensive
+                            cleaning.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is this safe for my device?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Absolutely! The speaker cleaner sound uses frequencies within normal audio ranges that your
+                            speakers are designed to handle. Unlike physical cleaning methods that risk damaging
+                            delicate components, sound wave technology is completely non-invasive and safe for all
+                            device types.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Which devices are compatible with this tool?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our sound cleaner works with any device that has speakers and can access a web browser -
+                            including iPhones, Samsung phones, Google Pixel, Android devices, tablets, iPads, laptops,
+                            and desktop computers. No app download or installation required.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How long does the cleaning process take?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Each cleaning cycle takes approximately 60-90 seconds. For best results when trying to fix my
+                            speaker, we recommend running the water eject mode once, followed by the vibration mode,
+                            then testing your audio. If needed, repeat the process 2-3 times for stubborn moisture or
+                            debris.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Do I need to download an app?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>No! This is a web-based speaker cleaner that works directly in your browser. Simply visit our
+                            website, and you can start cleaning immediately. This makes it more convenient than apps and
+                            accessible from any device without storage space concerns.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What should I do if sound is still muffled after cleaning?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>First, try repeating the process 2-3 times, ensuring your volume is at maximum. Use both
+                            water eject and vibration modes. If the issue persists, there may be internal speaker damage
+                            or a hardware problem that requires professional repair. Our call speaker cleaner tool can
+                            fix most issues, but physical damage needs expert attention.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Can this fix speakers damaged by salt water?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Our speaker dust cleaning sound can help eject salt water, but salt water damage requires
+                            immediate action. Use our tool immediately after exposure, then rinse the device exterior
+                            with fresh water (if waterproof) and repeat the cleaning process several times. Salt residue
+                            can cause corrosion, so act fast.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>Is this really free? Are there hidden costs?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Yes, completely free! No subscriptions, no in-app purchases, no premium features locked
+                            behind paywalls. We believe everyone should have access to this essential tool to clean my
+                            speaker without paying for expensive repairs or apps.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>How often should I use the speaker cleaner?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Use it whenever you notice reduced sound quality, after water exposure, or as preventive
+                            maintenance. For daily phone users, running the sound cleaner weekly helps maintain optimal
+                            audio performance. There's no harm in regular use - it only takes a minute and keeps
+                            speakers in peak condition.</p>
+                    </div>
+                </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">
+                        <span>What's the difference between left, right, and both speaker modes?</span>
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="2">
+                            <polyline points="6 9 12 15 18 9"></polyline>
+                        </svg>
+                    </button>
+                    <div class="faq-answer">
+                        <p>Most devices have stereo speakers. If only one speaker has water or dust issues, you can
+                            target that specific speaker to save time. "Both speakers" mode is recommended for general
+                            cleaning, while individual speaker selection is useful when only one side needs attention
+                            after a targeted spill or blockage.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Tips Section -->
+    <section class="tips-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Pro Tips for Maximum Effectiveness</h2>
+                <p>Get the best results from your speaker cleaning session</p>
+            </div>
+
+            <div class="tips-grid">
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Volume Matters</h3>
+                    <p>Always set your device volume to maximum before starting. Higher volume creates stronger
+                        vibrations, making the water eject and dust removal more effective.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Positioning is Key</h3>
+                    <p>Place your device with speakers facing downward on a flat surface. Let gravity assist the speaker
+                        cleaner sound in pushing water and debris out.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Dry First</h3>
+                    <p>Wipe away any visible water droplets with a soft cloth before using our tool. This allows the
+                        sound waves to focus on internal moisture rather than surface water.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Immediate Action</h3>
+                    <p>Use the speaker cleaner immediately after water exposure. The faster you act, the less time water
+                        has to seep deeper into your device and cause damage.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Multiple Cycles</h3>
+                    <p>Don't stop after one cycle. Run the water eject mode 2-3 times with the vibration mode in between
+                        for thorough cleaning. Each cycle removes additional moisture.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Test Between Cycles</h3>
+                    <p>After each cleaning session, test your speaker with music or a call. This helps you track
+                        improvement and determine if additional cycles are needed.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Combine with Vibration</h3>
+                    <p>For stubborn water or dust, alternate between sound cleaning and vibration mode. The combination
+                        provides both acoustic and mechanical cleaning power.</p>
+                </div>
+
+                <div class="tip-card">
+                    <div class="tip-number">💡</div>
+                    <h3>Regular Maintenance</h3>
+                    <p>Don't wait for problems. Use our sound cleaner weekly as preventive maintenance to keep speakers
+                        crystal clear and extend their lifespan.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Prevention Section -->
+    <section class="prevention-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Preventing Future Speaker Problems</h2>
+                <p>Proactive measures to protect your device speakers</p>
+            </div>
+
+            <div class="prevention-content">
+                <div class="prevention-card">
+                    <h3>🛡️ Use Protective Cases</h3>
+                    <p>Invest in quality waterproof or water-resistant cases, especially if you're frequently near
+                        water. Many cases include speaker covers that prevent water and dust entry while maintaining
+                        audio quality.</p>
+                </div>
+
+                <div class="prevention-card">
+                    <h3>⚠️ Avoid High-Risk Environments</h3>
+                    <p>Keep devices away from pools, bathtubs, and beaches when possible. If you must use your phone in
+                        these environments, use waterproof accessories or keep it in protective bags.</p>
+                </div>
+
+                <div class="prevention-card">
+                    <h3>🧼 Regular Cleaning</h3>
+                    <p>Use our speaker cleaner weekly as preventive maintenance. Regular cleaning prevents buildup that
+                        becomes harder to remove over time. An ounce of prevention is worth a pound of cure.</p>
+                </div>
+
+                <div class="prevention-card">
+                    <h3>💧 Act Fast on Spills</h3>
+                    <p>The moment your device gets wet, power it off (if safe to do so) and use our water eject tool
+                        immediately. Quick action prevents water from reaching internal components.</p>
+                </div>
+
+                <div class="prevention-card">
+                    <h3>🏠 Control Environment</h3>
+                    <p>Store devices in low-humidity environments. Avoid leaving phones in steamy bathrooms or humid
+                        cars. Consider using silica gel packets in your device storage area.</p>
+                </div>
+
+                <div class="prevention-card">
+                    <h3>🔍 Regular Inspections</h3>
+                    <p>Periodically check speaker grilles for visible dust or debris. Clean with a soft brush if needed,
+                        then use our speaker dust cleaning sound for deep cleaning.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <div class="cta-content">
+                <h2>Ready to Fix Your Speakers?</h2>
+                <p>Join hundreds of thousands who have restored their device audio with our free speaker cleaner tool
+                </p>
+                <a href="#home" class="btn btn-primary btn-large">Start Cleaning Now</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TryFixMySpeaker</h3>
+                    <p>Professional speaker cleaner tool using advanced sound wave technology to eject water and remove
+                        dust from your device speakers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
+                        <li><a href="/disclaimer/">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li><a href="/#benefits">Benefits</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TryFixMySpeaker. All rights reserved. | Made with ❤️ for better audio quality</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>

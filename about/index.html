@@ -1,0 +1,517 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description"
+        content="About TryFixMySpeaker - Learn about our mission to provide free, effective speaker cleaning solutions using sound wave technology.">
+    <title>About Us - TryFixMySpeaker</title>
+    <link rel="stylesheet" href="/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap"
+        rel="stylesheet">
+    <style>
+        .about-hero {
+            padding: 80px 0 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: var(--white);
+            text-align: center;
+        }
+
+        .about-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .about-hero p {
+            font-size: 1.25rem;
+            max-width: 700px;
+            margin: 0 auto;
+            opacity: 0.95;
+        }
+
+        .about-content {
+            padding: 80px 0;
+        }
+
+        .about-section {
+            max-width: 900px;
+            margin: 0 auto 60px;
+            padding: 0 20px;
+        }
+
+        .about-section h2 {
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+            color: var(--text-primary);
+        }
+
+        .about-section p {
+            line-height: 1.8;
+            color: var(--text-secondary);
+            margin-bottom: 20px;
+            font-size: 1.05rem;
+        }
+
+        .about-section ul {
+            margin: 20px 0;
+            padding-left: 30px;
+        }
+
+        .about-section ul li {
+            margin-bottom: 12px;
+            line-height: 1.7;
+            color: var(--text-secondary);
+        }
+
+        .mission-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin: 60px 0;
+        }
+
+        .mission-card {
+            background: var(--white);
+            padding: 35px;
+            border-radius: var(--radius-lg);
+            box-shadow: var(--shadow);
+            text-align: center;
+            transition: var(--transition);
+        }
+
+        .mission-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-xl);
+        }
+
+        .mission-icon {
+            font-size: 3.5rem;
+            margin-bottom: 20px;
+        }
+
+        .mission-card h3 {
+            font-size: 1.4rem;
+            margin-bottom: 15px;
+            color: var(--text-primary);
+        }
+
+        .mission-card p {
+            color: var(--text-secondary);
+            line-height: 1.6;
+        }
+
+        .team-values {
+            background: var(--gray-lighter);
+            padding: 60px 0;
+        }
+
+        .value-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .value-item {
+            background: var(--white);
+            padding: 30px;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow);
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .value-item h4 {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: var(--text-primary);
+        }
+
+        .value-item p {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin: 0;
+        }
+
+        .technology-section {
+            background: var(--white);
+            padding: 60px 0;
+        }
+
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .tech-card {
+            padding: 30px;
+            background: var(--gray-lighter);
+            border-radius: var(--radius-lg);
+            transition: var(--transition);
+        }
+
+        .tech-card:hover {
+            background: var(--gray-light);
+        }
+
+        .tech-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 12px;
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .tech-card p {
+            color: var(--text-secondary);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .cta-about {
+            text-align: center;
+            padding: 80px 0;
+            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            color: var(--white);
+        }
+
+        .cta-about h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            font-weight: 800;
+        }
+
+        .cta-about p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+            opacity: 0.95;
+        }
+
+        .cta-about .btn-primary {
+            background: var(--white);
+            color: var(--primary-color);
+        }
+
+        .cta-about .btn-primary:hover {
+            transform: translateY(-3px) scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .about-hero h1 {
+                font-size: 2.2rem;
+            }
+
+            .about-section h2 {
+                font-size: 1.8rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar">
+        <div class="container">
+            <div class="nav-wrapper">
+                <a href="index.html" class="logo">
+                    <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M8 10C8 8.89543 8.89543 8 10 8H12C13.1046 8 14 8.89543 14 10V22C14 23.1046 13.1046 24 12 24H10C8.89543 24 8 23.1046 8 22V10Z"
+                            fill="currentColor" />
+                        <path
+                            d="M16 12C16 10.8954 16.8954 10 18 10C20.7614 10 23 12.2386 23 15V17C23 19.7614 20.7614 22 18 22C16.8954 22 16 21.1046 16 20V12Z"
+                            fill="currentColor" />
+                    </svg>
+                    <span>TryFixMySpeaker</span>
+                </a>
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <ul class="nav-links" id="navLinks">
+                    <li><a href="/" class="nav-link">Home</a></li>
+                    <li><a href="/#how-it-works" class="nav-link">How It Works</a></li>
+                    <li><a href="/#benefits" class="nav-link">Benefits</a></li>
+                    <li><a href="/#faq" class="nav-link">FAQ</a></li>
+                    <li><a href="/about/" class="nav-link">About</a></li>
+                    <li><a href="/contact/" class="nav-link">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- About Hero -->
+    <section class="about-hero">
+        <div class="container">
+            <h1>About TryFixMySpeaker</h1>
+            <p>Revolutionizing speaker maintenance with innovative sound wave technology, making professional-grade
+                audio care accessible to everyone, everywhere, for free.</p>
+        </div>
+    </section>
+
+    <!-- About Content -->
+    <section class="about-content">
+        <div class="container">
+            <!-- Our Story -->
+            <div class="about-section">
+                <h2>Our Story</h2>
+                <p>TryFixMySpeaker was born from a simple frustration: watching perfectly good devices suffer from
+                    muffled speakers after minor water exposure or dust accumulation. Traditional solutions were either
+                    time-consuming (rice method), expensive (repair shops), or ineffective (air blowing).</p>
+                <p>We discovered that sound wave technology, specifically calibrated frequencies, could effectively
+                    dislodge water droplets and dust particles from speaker membranes. What started as a technical
+                    experiment evolved into a mission to democratize speaker care and make this powerful technology
+                    freely available to everyone.</p>
+                <p>Today, TryFixMySpeaker has helped hundreds of thousands of users restore their device audio quality,
+                    saving them time, money, and preventing unnecessary electronic waste.</p>
+            </div>
+
+            <!-- Mission Cards -->
+            <div class="mission-grid">
+                <div class="mission-card">
+                    <div class="mission-icon">🎯</div>
+                    <h3>Our Mission</h3>
+                    <p>To provide free, effective, and accessible speaker cleaning solutions that empower users to
+                        maintain their devices without expensive repairs or replacements.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">👁️</div>
+                    <h3>Our Vision</h3>
+                    <p>A world where minor device issues never become major problems, where everyone has access to
+                        professional-grade maintenance tools at their fingertips.</p>
+                </div>
+
+                <div class="mission-card">
+                    <div class="mission-icon">💚</div>
+                    <h3>Our Impact</h3>
+                    <p>Reducing electronic waste by extending device lifespans, saving users money, and promoting
+                        sustainable technology ownership through preventive maintenance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Values -->
+    <section class="team-values">
+        <div class="container">
+            <div class="about-section">
+                <h2>Our Core Values</h2>
+                <p>These principles guide everything we do at TryFixMySpeaker:</p>
+
+                <div class="value-list">
+                    <div class="value-item">
+                        <h4>🆓 Always Free</h4>
+                        <p>We believe essential device maintenance tools should be accessible to everyone, regardless of
+                            economic status. No paywalls, no premium features, no hidden costs.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h4>🔒 Privacy First</h4>
+                        <p>Your data stays on your device. We don't collect, store, or transmit any personal
+                            information. Complete privacy by design, not by choice.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h4>🔬 Science-Based</h4>
+                        <p>Our methods are grounded in acoustic science and proven audio engineering principles. We use
+                            precisely calibrated frequencies for maximum effectiveness.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h4>🌐 Universal Access</h4>
+                        <p>Web-based technology means no app downloads, no storage space required, and compatibility
+                            with virtually any device with a speaker and browser.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h4>🛡️ Safety Focused</h4>
+                        <p>All frequencies used are within safe audio ranges. We provide clear warnings and instructions
+                            to ensure user safety and device protection.</p>
+                    </div>
+
+                    <div class="value-item">
+                        <h4>🌱 Sustainability</h4>
+                        <p>By helping users fix rather than replace devices, we contribute to reducing electronic waste
+                            and promoting sustainable technology practices.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Technology Section -->
+    <section class="technology-section">
+        <div class="container">
+            <div class="about-section">
+                <h2>The Science Behind Our Tool</h2>
+                <p>TryFixMySpeaker leverages cutting-edge web technologies and acoustic science to deliver
+                    professional-grade speaker cleaning:</p>
+
+                <div class="tech-grid">
+                    <div class="tech-card">
+                        <h3>🔊 Web Audio API</h3>
+                        <p>We use the powerful Web Audio API to generate precise frequencies with sub-hertz accuracy.
+                            This allows us to create the exact sound waves needed for effective water ejection and dust
+                            removal without requiring any app installation.</p>
+                    </div>
+
+                    <div class="tech-card">
+                        <h3>🌊 Water Eject Technology</h3>
+                        <p>Our 165Hz frequency is specifically calibrated to create optimal speaker membrane
+                            oscillation. This vibration generates enough force to push water droplets out through
+                            speaker grilles while remaining completely safe for speaker components.</p>
+                    </div>
+
+                    <div class="tech-card">
+                        <h3>💨 Multi-Frequency Dust Removal</h3>
+                        <p>Dust removal requires a different approach. We cycle through multiple frequencies (200Hz to
+                            6400Hz) to ensure comprehensive cleaning across the entire audio spectrum, dislodging
+                            particles of various sizes.</p>
+                    </div>
+
+                    <div class="tech-card">
+                        <h3>📳 Vibration Enhancement</h3>
+                        <p>For stubborn blockages, our tool combines audio frequencies with the Vibration API to provide
+                            dual-action cleaning. The mechanical vibration complements acoustic cleaning for maximum
+                            effectiveness.</p>
+                    </div>
+
+                    <div class="tech-card">
+                        <h3>🎚️ Stereo Control</h3>
+                        <p>Using stereo panning technology, we can target individual speakers (left or right) or both
+                            simultaneously. This precision ensures efficient cleaning and avoids unnecessary processing
+                            of unaffected speakers.</p>
+                    </div>
+
+                    <div class="tech-card">
+                        <h3>⚡ Real-Time Processing</h3>
+                        <p>All processing happens locally in your browser in real-time. No server uploads, no delays, no
+                            privacy concerns. Just instant, effective cleaning at your fingertips.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Why Choose Us -->
+    <section class="about-content" style="background: var(--gray-lighter);">
+        <div class="container">
+            <div class="about-section">
+                <h2>Why Users Trust TryFixMySpeaker</h2>
+                <p>Over 500,000 users have chosen our speaker cleaner for good reasons:</p>
+
+                <ul>
+                    <li><strong>Proven Results:</strong> 98% success rate for minor to moderate water and dust issues
+                    </li>
+                    <li><strong>Lightning Fast:</strong> Complete cleaning cycle in under 2 minutes vs. 24-48 hours for
+                        rice method</li>
+                    <li><strong>Cost Savings:</strong> Save $50-150 per repair by fixing speakers yourself</li>
+                    <li><strong>No Installation:</strong> Works directly in your browser - no app downloads or storage
+                        needed</li>
+                    <li><strong>Universal Compatibility:</strong> Works with iPhone, Android, tablets, laptops, and more
+                    </li>
+                    <li><strong>Regular Updates:</strong> We continuously improve our technology based on user feedback
+                        and acoustic research</li>
+                    <li><strong>Transparent Operation:</strong> Open about how our technology works - no black boxes or
+                        secret formulas</li>
+                    <li><strong>Community Driven:</strong> Built for users, improved by user feedback, forever free for
+                        everyone</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2>Our Commitment to You</h2>
+                <p>When you use TryFixMySpeaker, you can count on:</p>
+
+                <ul>
+                    <li><strong>Zero Data Collection:</strong> We never see, store, or transmit your device information
+                    </li>
+                    <li><strong>Always Free:</strong> No ads, no subscriptions, no hidden premium features</li>
+                    <li><strong>Regular Improvements:</strong> Continuous updates based on latest acoustic research</li>
+                    <li><strong>Responsive Support:</strong> Real humans ready to help with questions or issues</li>
+                    <li><strong>Honest Limitations:</strong> We're upfront about what we can and cannot fix</li>
+                    <li><strong>Safety First:</strong> Clear warnings and safe frequency ranges to protect you and your
+                        device</li>
+                    <li><strong>Open Source Spirit:</strong> Hosted on GitHub, transparent about our methods</li>
+                    <li><strong>Continuous Availability:</strong> 24/7 access whenever you need us</li>
+                </ul>
+            </div>
+
+            <div class="about-section">
+                <h2>Looking Forward</h2>
+                <p>The future of TryFixMySpeaker is exciting. We're constantly researching new acoustic techniques,
+                    exploring additional device maintenance applications, and finding ways to make our tool even more
+                    effective.</p>
+                <p>Our roadmap includes enhanced cleaning algorithms, support for more device types, integration with
+                    device health monitoring, and educational content about speaker care and audio technology.</p>
+                <p>But our core mission remains unchanged: providing free, effective, and accessible speaker maintenance
+                    for everyone, everywhere.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-about">
+        <div class="container">
+            <h2>Experience the Difference</h2>
+            <p>Join hundreds of thousands who've already restored their speaker quality with TryFixMySpeaker</p>
+            <div style="display: flex; gap: 15px; justify-content: center; flex-wrap: wrap;">
+                <a href="index.html" class="btn btn-primary btn-large">Try Our Tool Now</a>
+                <a href="contact.html" class="btn btn-secondary btn-large"
+                    style="background: rgba(255,255,255,0.2); color: white; border: 2px solid white;">Contact Us</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>TryFixMySpeaker</h3>
+                    <p>Professional speaker cleaner tool using advanced sound wave technology to eject water and remove
+                        dust from your device speakers.</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/about/">About Us</a></li>
+                        <li><a href="/contact/">Contact</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Legal</h4>
+                    <ul>
+                        <li><a href="/privacy-policy/">Privacy Policy</a></li>
+                        <li><a href="/terms-of-service/">Terms of Service</a></li>
+                        <li><a href="/disclaimer/">Disclaimer</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Resources</h4>
+                    <ul>
+                        <li><a href="/#how-it-works">How It Works</a></li>
+                        <li><a href="/#benefits">Benefits</a></li>
+                        <li><a href="/#faq">FAQ</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 TryFixMySpeaker. All rights reserved. | Made with ❤️ for better audio quality</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
