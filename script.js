@@ -32,8 +32,12 @@ function initializeAudioContext() {
   }
 }
 
-// Setup Event Listeners
 function setupEventListeners() {
+  // Only setup if the tool is present (check for main button)
+  const startBtn = document.getElementById("startBtn");
+  const stopBtn = document.getElementById("stopBtn");
+  if (!startBtn || !stopBtn) return;
+
   // Mode selection buttons
   const modeBtns = document.querySelectorAll(".mode-btn");
   modeBtns.forEach((btn) => {
@@ -55,9 +59,36 @@ function setupEventListeners() {
   });
 
   // Control buttons
-  document.getElementById("startBtn").addEventListener("click", startCleaning);
-  document.getElementById("stopBtn").addEventListener("click", stopCleaning);
+  startBtn.addEventListener("click", startCleaning);
+  stopBtn.addEventListener("click", stopCleaning);
 }
+
+// Setup Event Listeners
+// function setupEventListeners() {
+//   // Mode selection buttons
+//   const modeBtns = document.querySelectorAll(".mode-btn");
+//   modeBtns.forEach((btn) => {
+//     btn.addEventListener("click", () => {
+//       modeBtns.forEach((b) => b.classList.remove("active"));
+//       btn.classList.add("active");
+//       currentMode = btn.dataset.mode;
+//     });
+//   });
+
+//   // Speaker selection buttons
+//   const speakerBtns = document.querySelectorAll(".speaker-btn");
+//   speakerBtns.forEach((btn) => {
+//     btn.addEventListener("click", () => {
+//       speakerBtns.forEach((b) => b.classList.remove("active"));
+//       btn.classList.add("active");
+//       currentSpeaker = btn.dataset.speaker;
+//     });
+//   });
+
+//   // Control buttons
+//   document.getElementById("startBtn").addEventListener("click", startCleaning);
+//   document.getElementById("stopBtn").addEventListener("click", stopCleaning);
+// }
 
 // Start Cleaning Process
 async function startCleaning() {
