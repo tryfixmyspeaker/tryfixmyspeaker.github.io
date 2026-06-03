@@ -25,7 +25,7 @@
     <style>
         .about-hero {
             padding: 80px 0 60px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: var(--primary-color);
             color: var(--white);
             text-align: center;
         }
@@ -99,8 +99,17 @@
         }
 
         .mission-icon {
-            font-size: 3.5rem;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 56px;
             margin-bottom: 20px;
+            color: var(--primary-color);
+        }
+
+        .mission-icon svg {
+            width: 56px;
+            height: 56px;
         }
 
         .mission-card h3 {
@@ -138,6 +147,9 @@
             font-size: 1.2rem;
             margin-bottom: 10px;
             color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .value-item p {
@@ -188,7 +200,7 @@
         .cta-about {
             text-align: center;
             padding: 80px 0;
-            background: linear-gradient(135deg, var(--primary-color), var(--secondary-color));
+            background: var(--primary-color);
             color: var(--white);
         }
 
@@ -287,21 +299,36 @@
             <!-- Mission Cards -->
             <div class="mission-grid">
                 <div class="mission-card">
-                    <div class="mission-icon">🎯</div>
+                    <div class="mission-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="6"></circle>
+                            <circle cx="12" cy="12" r="2"></circle>
+                        </svg>
+                    </div>
                     <h3>Our Mission</h3>
                     <p>To provide free, effective, and accessible speaker cleaning solutions that empower users to
                         maintain their devices without expensive repairs or replacements.</p>
                 </div>
 
                 <div class="mission-card">
-                    <div class="mission-icon">👁️</div>
+                    <div class="mission-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"></path>
+                            <circle cx="12" cy="12" r="3"></circle>
+                        </svg>
+                    </div>
                     <h3>Our Vision</h3>
                     <p>A world where minor device issues never become major problems, where everyone has access to
                         professional-grade maintenance tools at their fingertips.</p>
                 </div>
 
                 <div class="mission-card">
-                    <div class="mission-icon">💚</div>
+                    <div class="mission-icon">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z"></path>
+                        </svg>
+                    </div>
                     <h3>Our Impact</h3>
                     <p>Reducing electronic waste by extending device lifespans, saving users money, and promoting
                         sustainable technology ownership through preventive maintenance.</p>
@@ -319,37 +346,72 @@
 
                 <div class="value-list">
                     <div class="value-item">
-                        <h4>🆓 Always Free</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"></path>
+                                <line x1="7" y1="7" x2="7.01" y2="7"></line>
+                            </svg>
+                            <span>Always Free</span>
+                        </h4>
                         <p>We believe essential device maintenance tools should be accessible to everyone, regardless of
                             economic status. No paywalls, no premium features, no hidden costs.</p>
                     </div>
 
                     <div class="value-item">
-                        <h4>🔒 Privacy First</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <rect x="3" y="11" width="18" height="11" rx="2" ry="2"></rect>
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4"></path>
+                            </svg>
+                            <span>Privacy First</span>
+                        </h4>
                         <p>Your data stays on your device. We don't collect, store, or transmit any personal
                             information. Complete privacy by design, not by choice.</p>
                     </div>
 
                     <div class="value-item">
-                        <h4>🔬 Science-Based</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+                            </svg>
+                            <span>Science-Based</span>
+                        </h4>
                         <p>Our methods are grounded in acoustic science and proven audio engineering principles. We use
                             precisely calibrated frequencies for maximum effectiveness.</p>
                     </div>
 
                     <div class="value-item">
-                        <h4>🌐 Universal Access</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="2" y1="12" x2="22" y2="12"></line>
+                                <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+                            </svg>
+                            <span>Universal Access</span>
+                        </h4>
                         <p>Web-based technology means no app downloads, no storage space required, and compatibility
                             with virtually any device with a speaker and browser.</p>
                     </div>
 
                     <div class="value-item">
-                        <h4>🛡️ Safety Focused</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                            </svg>
+                            <span>Safety Focused</span>
+                        </h4>
                         <p>All frequencies used are within safe audio ranges. We provide clear warnings and instructions
                             to ensure user safety and device protection.</p>
                     </div>
 
                     <div class="value-item">
-                        <h4>🌱 Sustainability</h4>
+                        <h4>
+                            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 3.58-1 9.8a7 7 0 0 1-7 8.2z"></path>
+                                <path d="M9 22v-4H5"></path>
+                            </svg>
+                            <span>Sustainability</span>
+                        </h4>
                         <p>By helping users fix rather than replace devices, we contribute to reducing electronic waste
                             and promoting sustainable technology practices.</p>
                     </div>
@@ -368,42 +430,83 @@
 
                 <div class="tech-grid">
                     <div class="tech-card">
-                        <h3>🔊 Web Audio API</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                            </svg>
+                            <span>Web Audio API</span>
+                        </h3>
                         <p>We use the powerful Web Audio API to generate precise frequencies with sub-hertz accuracy.
                             This allows us to create the exact sound waves needed for effective water ejection and dust
                             removal without requiring any app installation.</p>
                     </div>
 
                     <div class="tech-card">
-                        <h3>🌊 Water Eject Technology</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
+                            </svg>
+                            <span>Water Eject Technology</span>
+                        </h3>
                         <p>Our 165Hz frequency is specifically calibrated to create optimal speaker membrane
                             oscillation. This vibration generates enough force to push water droplets out through
                             speaker grilles while remaining completely safe for speaker components.</p>
                     </div>
 
                     <div class="tech-card">
-                        <h3>💨 Multi-Frequency Dust Removal</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <path d="M9.59 4.59A2 2 0 1 1 11 8H2m10.59 11.41A2 2 0 1 0 14 16H2m15.73-8.27A2.5 2.5 0 1 1 19.5 12H2"></path>
+                            </svg>
+                            <span>Multi-Frequency Dust Removal</span>
+                        </h3>
                         <p>Dust removal requires a different approach. We cycle through multiple frequencies (200Hz to
                             6400Hz) to ensure comprehensive cleaning across the entire audio spectrum, dislodging
                             particles of various sizes.</p>
                     </div>
 
                     <div class="tech-card">
-                        <h3>📳 Vibration Enhancement</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <rect x="5" y="2" width="14" height="20" rx="2" ry="2"></rect>
+                                <line x1="12" y1="18" x2="12.01" y2="18"></line>
+                                <path d="M1 8v8M23 8v8M3 10v4M21 10v4"></path>
+                            </svg>
+                            <span>Vibration Enhancement</span>
+                        </h3>
                         <p>For stubborn blockages, our tool combines audio frequencies with the Vibration API to provide
                             dual-action cleaning. The mechanical vibration complements acoustic cleaning for maximum
                             effectiveness.</p>
                     </div>
 
                     <div class="tech-card">
-                        <h3>🎚️ Stereo Control</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <line x1="4" y1="21" x2="4" y2="14"></line>
+                                <line x1="4" y1="10" x2="4" y2="3"></line>
+                                <line x1="12" y1="21" x2="12" y2="12"></line>
+                                <line x1="12" y1="8" x2="12" y2="3"></line>
+                                <line x1="20" y1="21" x2="20" y2="16"></line>
+                                <line x1="20" y1="12" x2="20" y2="3"></line>
+                                <line x1="2" y1="14" x2="6" y2="14"></line>
+                                <line x1="10" y1="8" x2="14" y2="8"></line>
+                                <line x1="18" y1="16" x2="22" y2="16"></line>
+                            </svg>
+                            <span>Stereo Control</span>
+                        </h3>
                         <p>Using stereo panning technology, we can target individual speakers (left or right) or both
                             simultaneously. This precision ensures efficient cleaning and avoids unnecessary processing
                             of unaffected speakers.</p>
                     </div>
 
                     <div class="tech-card">
-                        <h3>⚡ Real-Time Processing</h3>
+                        <h3>
+                            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="color: var(--primary-color);">
+                                <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                            </svg>
+                            <span>Real-Time Processing</span>
+                        </h3>
                         <p>All processing happens locally in your browser in real-time. No server uploads, no delays, no
                             privacy concerns. Just instant, effective cleaning at your fingertips.</p>
                     </div>
