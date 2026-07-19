@@ -10,6 +10,44 @@ let currentSpeaker = "both";
 let progressInterval;
 let vibrationInterval;
 
+// Next-step suggestions shown when a cleaning mode completes.
+// Keyed by the mode that just ran; primaryHref points to the page
+// hosting the suggested follow-up mode.
+const NEXT_STEPS = {
+  water: {
+    title: "Water ejection complete!",
+    message:
+      "Still hearing muffled sound? Dust in the speaker grill is the most common cause.",
+    stoppedTitle: "Water eject stopped",
+    stoppedMessage:
+      "A full 60-second pass works best. Restart it — or if the sound seems dusty rather than wet, try a deep dust clean.",
+    primaryText: "Run Deep Dust Clean",
+    primaryHref: "/deep-clean/",
+    secondaryText: "Run Water Eject Again",
+  },
+  dust: {
+    title: "Deep dust clean complete!",
+    message:
+      "Water still trapped inside? Vibration mode shakes out the remaining drops.",
+    stoppedTitle: "Dust clean stopped",
+    stoppedMessage:
+      "Letting the full frequency sweep finish gives the best result. Or if trapped water is the problem, vibration mode may help more.",
+    primaryText: "Try Vibration Mode",
+    primaryHref: "/vibration/",
+    secondaryText: "Run Dust Clean Again",
+  },
+  vibrate: {
+    title: "Vibration complete!",
+    message: "Finish with a standard water eject pass for the clearest sound.",
+    stoppedTitle: "Vibration stopped",
+    stoppedMessage:
+      "A full cycle shakes out the most water. Restart it, or finish with a standard water eject pass.",
+    primaryText: "Run Standard Clean",
+    primaryHref: "/",
+    secondaryText: "Run Vibration Again",
+  },
+};
+
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
   initializeAudioContext();
@@ -17,6 +55,13 @@ document.addEventListener("DOMContentLoaded", () => {
   setupMobileMenu();
   setupFAQ();
   setupSmoothScroll();
+
+  // Each page marks its own mode as active; links styled as mode
+  // buttons navigate to the other mode pages.
+  const activeModeBtn = document.querySelector("button.mode-btn.active");
+  if (activeModeBtn) {
+    currentMode = activeModeBtn.dataset.mode;
+  }
 });
 
 // Initialize Audio Context
@@ -38,8 +83,9 @@ function setupEventListeners() {
   const stopBtn = document.getElementById("stopBtn");
   if (!startBtn || !stopBtn) return;
 
-  // Mode selection buttons
-  const modeBtns = document.querySelectorAll(".mode-btn");
+  // Mode selection buttons (anchors styled as mode buttons navigate
+  // to their own page instead of switching in place)
+  const modeBtns = document.querySelectorAll("button.mode-btn");
   modeBtns.forEach((btn) => {
     btn.addEventListener("click", () => {
       modeBtns.forEach((b) => b.classList.remove("active"));
@@ -60,7 +106,11 @@ function setupEventListeners() {
 
   // Control buttons
   startBtn.addEventListener("click", startCleaning);
-  stopBtn.addEventListener("click", stopCleaning);
+  stopBtn.addEventListener("click", () => {
+    const stoppedMode = currentMode;
+    stopCleaning();
+    showNextStep(stoppedMode, true);
+  });
 }
 
 // Setup Event Listeners
@@ -101,6 +151,7 @@ async function startCleaning() {
 
   isPlaying = true;
   updateUIState(true);
+  hideNextStep();
 
   // Reset progress
   updateProgress(0, "Starting...");
@@ -148,6 +199,7 @@ async function waterEjectMode() {
     stopAllAudio();
     isPlaying = false;
     updateUIState(false);
+    showNextStep("water");
   }
 }
 
@@ -184,6 +236,7 @@ async function dustRemovalMode() {
     updateProgress(100, "Dust removal complete!");
     isPlaying = false;
     updateUIState(false);
+    showNextStep("dust");
   }
 }
 
@@ -216,6 +269,7 @@ async function vibrationMode() {
     stopVibration();
     isPlaying = false;
     updateUIState(false);
+    showNextStep("vibrate");
   }
 }
 
@@ -341,6 +395,78 @@ function updateProgress(percent, status) {
   progressFill.style.width = `${percent}%`;
   progressPercent.textContent = `${Math.round(percent)}%`;
   statusText.textContent = status;
+}
+
+// Show the next-step popup after a cleaning cycle finishes or is stopped
+function showNextStep(mode, stopped) {
+  const step = NEXT_STEPS[mode];
+  if (!step || !document.querySelector(".tool-card")) return;
+
+  hideNextStep();
+
+  const checkIcon = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+            stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="20 6 9 17 4 12"></polyline>
+        </svg>`;
+  const pauseIcon = `
+        <svg width="22" height="22" viewBox="0 0 24 24" fill="currentColor">
+            <rect x="6" y="5" width="4" height="14" rx="1"></rect>
+            <rect x="14" y="5" width="4" height="14" rx="1"></rect>
+        </svg>`;
+
+  const overlay = document.createElement("div");
+  overlay.className = "next-step-overlay";
+  overlay.id = "nextStepPanel";
+  overlay.innerHTML = `
+        <div class="next-step-modal${stopped ? " stopped" : ""}" role="dialog" aria-modal="true"
+            aria-labelledby="nextStepTitle">
+            <button type="button" class="next-step-close" aria-label="Close">&times;</button>
+            <div class="next-step-check">${stopped ? pauseIcon : checkIcon}</div>
+            <h3 id="nextStepTitle">${stopped ? step.stoppedTitle : step.title}</h3>
+            <p>${stopped ? step.stoppedMessage : step.message}</p>
+            <div class="next-step-actions">
+                <a href="${step.primaryHref}" class="btn btn-primary">${step.primaryText}</a>
+                <button type="button" class="btn btn-secondary" id="runAgainBtn">${step.secondaryText}</button>
+            </div>
+        </div>
+    `;
+
+  overlay.addEventListener("click", (e) => {
+    if (e.target === overlay) hideNextStep();
+  });
+  overlay.querySelector(".next-step-close").addEventListener("click", hideNextStep);
+  overlay.querySelector(".btn-primary").addEventListener("click", () => {
+    if (typeof gtag === "function") {
+      gtag("event", "flow_next_step", { from_mode: mode, stopped: !!stopped });
+    }
+  });
+  overlay.querySelector("#runAgainBtn").addEventListener("click", () => {
+    hideNextStep();
+    startCleaning();
+  });
+  document.addEventListener("keydown", closeNextStepOnEscape);
+
+  document.body.appendChild(overlay);
+  document.body.classList.add("modal-open");
+
+  if (typeof gtag === "function") {
+    gtag("event", stopped ? "clean_stopped" : "clean_complete", { mode: mode });
+  }
+}
+
+// Remove the next-step popup if present
+function hideNextStep() {
+  const overlay = document.getElementById("nextStepPanel");
+  if (overlay) {
+    overlay.remove();
+  }
+  document.body.classList.remove("modal-open");
+  document.removeEventListener("keydown", closeNextStepOnEscape);
+}
+
+function closeNextStepOnEscape(e) {
+  if (e.key === "Escape") hideNextStep();
 }
 
 // Update UI State
