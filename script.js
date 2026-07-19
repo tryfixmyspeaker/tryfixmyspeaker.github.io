@@ -184,9 +184,11 @@ function stopCleaning() {
 async function waterEjectMode() {
   updateProgress(0, "Ejecting water...");
 
-  // Play 165Hz frequency (optimal for water ejection)
+  // Pulsed 165Hz bursts (1s on / 0.3s off) — 165Hz sits near the
+  // resonant frequency of phone speaker membranes, and pulsing
+  // mimics the pump cycles Apple's water eject uses
   const duration = 60000; // 60 seconds
-  playFrequency(165, duration);
+  playPulsedFrequency(165, duration, 1000, 300);
 
   // Animate progress
   animateProgress(duration, "Ejecting water...");
@@ -207,8 +209,10 @@ async function waterEjectMode() {
 async function dustRemovalMode() {
   updateProgress(0, "Removing dust...");
 
-  // Cycle through frequencies for dust removal
-  const frequencies = [200, 400, 800, 1600, 3200, 6400];
+  // Cycle through frequencies for dust removal — kept within the
+  // 200-1500Hz band where diaphragm excursion is large enough to
+  // mechanically dislodge debris (higher tones barely move the cone)
+  const frequencies = [200, 300, 450, 700, 1000, 1500];
   const durationPerFreq = 10000; // 10 seconds per frequency
   const totalDuration = frequencies.length * durationPerFreq;
 
@@ -242,11 +246,10 @@ async function dustRemovalMode() {
 
 // Vibration Mode
 async function vibrationMode() {
-  if (!("vibrate" in navigator)) {
-    alert("Vibration API not supported on this device");
-    stopCleaning();
-    return;
-  }
+  // iOS Safari has no Vibration API — fall back to the bass tone
+  // alone instead of dead-ending the flow with an alert
+  const canVibrate = "vibrate" in navigator;
+  const statusText = canVibrate ? "Vibrating..." : "Deep bass mode...";
 
   updateProgress(0, "Vibration mode active...");
 
@@ -254,11 +257,12 @@ async function vibrationMode() {
   const duration = 30000; // 30 seconds
   playFrequency(80, duration);
 
-  // Start vibration pattern
-  startVibrationPattern();
+  if (canVibrate) {
+    startVibrationPattern();
+  }
 
   // Animate progress
-  animateProgress(duration, "Vibrating...");
+  animateProgress(duration, statusText);
 
   // Wait for completion
   await sleep(duration);
@@ -273,11 +277,10 @@ async function vibrationMode() {
   }
 }
 
-// Play Frequency
-function playFrequency(frequency, duration) {
+// Create oscillator -> gain -> panner chain for the selected speaker
+function createToneChain(frequency) {
   stopAllAudio();
 
-  // Create oscillator
   oscillator = audioContext.createOscillator();
   gainNode = audioContext.createGain();
 
@@ -301,15 +304,20 @@ function playFrequency(frequency, duration) {
   // Configure oscillator
   oscillator.type = "sine";
   oscillator.frequency.setValueAtTime(frequency, audioContext.currentTime);
-
-  // Set gain (volume)
   gainNode.gain.setValueAtTime(0, audioContext.currentTime);
-  gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.1); // Fade in
 
   // Connect nodes
   oscillator.connect(gainNode);
   gainNode.connect(panner);
   panner.connect(audioContext.destination);
+}
+
+// Play Frequency (continuous tone)
+function playFrequency(frequency, duration) {
+  createToneChain(frequency);
+
+  // Fade in
+  gainNode.gain.linearRampToValueAtTime(1, audioContext.currentTime + 0.1);
 
   // Start oscillator
   oscillator.start();
@@ -319,6 +327,31 @@ function playFrequency(frequency, duration) {
   gainNode.gain.setValueAtTime(1, stopTime - 0.1);
   gainNode.gain.linearRampToValueAtTime(0, stopTime);
   oscillator.stop(stopTime);
+}
+
+// Play Frequency as repeated bursts. The silent gap between pulses
+// lets ejected droplets settle away from the grille instead of being
+// pulled back on the diaphragm's return stroke.
+function playPulsedFrequency(frequency, duration, pulseMs, gapMs) {
+  createToneChain(frequency);
+
+  const now = audioContext.currentTime;
+  const totalSec = duration / 1000;
+  const pulseSec = pulseMs / 1000;
+  const cycleSec = (pulseMs + gapMs) / 1000;
+  const ramp = 0.04;
+
+  for (let t = 0; t < totalSec; t += cycleSec) {
+    const start = now + t;
+    const end = Math.min(start + pulseSec, now + totalSec);
+    gainNode.gain.setValueAtTime(0, start);
+    gainNode.gain.linearRampToValueAtTime(1, start + ramp);
+    gainNode.gain.setValueAtTime(1, Math.max(end - ramp, start + ramp));
+    gainNode.gain.linearRampToValueAtTime(0, end);
+  }
+
+  oscillator.start();
+  oscillator.stop(now + totalSec);
 }
 
 // Stop All Audio
