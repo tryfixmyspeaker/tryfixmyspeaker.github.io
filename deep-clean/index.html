@@ -18,13 +18,32 @@
     <link rel="preload" href="/fonts/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-7106951601816186"
         crossorigin="anonymous"></script>
-    <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-7DYJP3M16W"></script>
+    <!-- Google tag (gtag.js). The library is 165KB and competes with first
+         paint, so the calls are queued into dataLayer immediately and the
+         library itself is fetched once the page has painted (or sooner, on
+         the first user interaction). No events are lost — dataLayer buffers
+         them until gtag.js arrives. -->
     <script>
         window.dataLayer = window.dataLayer || [];
         function gtag() { dataLayer.push(arguments); }
         gtag('js', new Date());
         gtag('config', 'G-7DYJP3M16W');
+        (function () {
+            var done = false;
+            function load() {
+                if (done) return;
+                done = true;
+                var s = document.createElement('script');
+                s.async = true;
+                s.src = 'https://www.googletagmanager.com/gtag/js?id=G-7DYJP3M16W';
+                document.head.appendChild(s);
+            }
+            ['pointerdown', 'keydown', 'touchstart', 'scroll'].forEach(function (e) {
+                addEventListener(e, load, { once: true, passive: true });
+            });
+            if (document.readyState === 'complete') load();
+            else addEventListener('load', load);
+        })();
     </script>
 </head>
 
@@ -346,9 +365,27 @@
         </div>
     </footer>
 
-    <script src="/script.js"></script>
+    <script defer src="/script.js"></script>
 
-    <script>(function (p, k) { window.EasyPusher = { publicKey: k }; var s = document.createElement('script'); s.src = p + '/app.min.js'; s.async = true; document.head.appendChild(s); })('https://cdn.easypusher.com', 'pk_rK6VPgeMMTYumbTNu_mej8wtL07XKKQZ')</script>
+    <!-- Push-notification prompt: nothing about it needs to run during the
+         initial render, so it is held until the page is idle after load. -->
+    <script>
+        (function (p, k) {
+            function start() {
+                window.EasyPusher = { publicKey: k };
+                var s = document.createElement('script');
+                s.src = p + '/app.min.js';
+                s.async = true;
+                document.head.appendChild(s);
+            }
+            function schedule() {
+                if (window.requestIdleCallback) requestIdleCallback(start, { timeout: 4000 });
+                else setTimeout(start, 2500);
+            }
+            if (document.readyState === 'complete') schedule();
+            else addEventListener('load', schedule);
+        })('https://cdn.easypusher.com', 'pk_rK6VPgeMMTYumbTNu_mej8wtL07XKKQZ');
+    </script>
 </body>
 
 </html>
