@@ -50,7 +50,9 @@ const NEXT_STEPS = {
 
 // Initialize on page load
 document.addEventListener("DOMContentLoaded", () => {
-  initializeAudioContext();
+  // The audio context is created on first play, not here — browsers refuse
+  // to start one before a user gesture anyway, and building it during load
+  // only added main-thread work before the page was interactive.
   setupEventListeners();
   setupMobileMenu();
   setupFAQ();
@@ -64,16 +66,20 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 });
 
-// Initialize Audio Context
+// Create the Audio Context on demand. Returns false if the browser can't.
 function initializeAudioContext() {
+  if (audioContext) return true;
+
   try {
     const AudioContext = window.AudioContext || window.webkitAudioContext;
     audioContext = new AudioContext();
+    return true;
   } catch (error) {
     console.error("Web Audio API not supported:", error);
     alert(
       "Your browser does not support the Web Audio API. Please use a modern browser."
     );
+    return false;
   }
 }
 
@@ -143,6 +149,9 @@ function setupEventListeners() {
 // Start Cleaning Process
 async function startCleaning() {
   if (isPlaying) return;
+
+  // First click is the user gesture the audio context needs to exist
+  if (!initializeAudioContext()) return;
 
   // Resume audio context if suspended (required for user interaction)
   if (audioContext.state === "suspended") {
@@ -596,28 +605,62 @@ function setupSmoothScroll() {
     });
   });
 
-  // Update active nav link on scroll
-  const sections = document.querySelectorAll("section[id]");
-  const navLinks = document.querySelectorAll(".nav-link");
+  // Update active nav link on scroll.
+  // Reading offsetTop inside the scroll handler forced a layout on every
+  // scroll event; offsets are measured once instead and only remeasured
+  // when the layout can actually have changed.
+  const sections = Array.from(document.querySelectorAll("section[id]"));
 
-  window.addEventListener("scroll", () => {
+  // Nav hrefs are root-relative ("/#benefits"), so match on the fragment
+  // rather than the whole href — comparing full hrefs never matched and
+  // the highlight silently did nothing.
+  const anchorLinks = Array.from(document.querySelectorAll(".nav-link"))
+    .map((link) => ({ link, id: (link.getAttribute("href") || "").split("#")[1] }))
+    .filter((entry) => entry.id);
+  if (!sections.length || !anchorLinks.length) return;
+
+  let offsets = [];
+  let ticking = false;
+  let activeId = null;
+
+  function measure() {
+    offsets = sections.map((section) => ({
+      id: section.getAttribute("id"),
+      top: section.offsetTop,
+    }));
+  }
+
+  function updateActiveLink() {
+    ticking = false;
+
     let current = "";
+    for (const section of offsets) {
+      if (window.scrollY >= section.top - 200) current = section.id;
+    }
 
-    sections.forEach((section) => {
-      const sectionTop = section.offsetTop;
-      const sectionHeight = section.clientHeight;
-      if (pageYOffset >= sectionTop - 200) {
-        current = section.getAttribute("id");
-      }
-    });
+    // Only touch the DOM when the highlighted link actually changes
+    if (current === activeId) return;
+    activeId = current;
 
-    navLinks.forEach((link) => {
-      link.classList.remove("active");
-      if (link.getAttribute("href") === `#${current}`) {
-        link.classList.add("active");
-      }
+    anchorLinks.forEach((entry) => {
+      entry.link.classList.toggle("active", entry.id === current);
     });
-  });
+  }
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (ticking) return;
+      ticking = true;
+      requestAnimationFrame(updateActiveLink);
+    },
+    { passive: true }
+  );
+
+  // Ads and late-loading fonts change section positions after first paint
+  window.addEventListener("resize", measure, { passive: true });
+  window.addEventListener("load", measure);
+  measure();
 }
 
 // Utility function for sleep

@@ -5,6 +5,18 @@
     box-sizing: border-box;
 }
 
+/* Metric-matched stand-in for Inter. Inter is loaded non-blocking, so text
+   first paints in the local system font; these adjustments make that font
+   occupy the same space Inter will, so the swap causes no layout shift. */
+@font-face {
+    font-family: 'Inter Fallback';
+    src: local('Arial');
+    ascent-override: 90%;
+    descent-override: 22.43%;
+    line-gap-override: 0%;
+    size-adjust: 107.4%;
+}
+
 :root {
     --primary-color: #4f46e5;
     --primary-dark: #4338ca;
@@ -39,7 +51,7 @@ html {
 }
 
 body {
-    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    font-family: 'Inter', 'Inter Fallback', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     line-height: 1.6;
     color: var(--text-primary);
     background: var(--gray-lighter);
@@ -478,6 +490,14 @@ a.mode-btn {
     margin: 0 auto 20px;
     max-width: 800px;
     overflow: hidden;
+}
+
+/* Reserve the slot height up front. Responsive AdSense units render at 0px
+   until the ad arrives, then push everything below them down — that late
+   expansion was the main source of layout shift. */
+.ad-container .adsbygoogle,
+.ad-container-section .adsbygoogle {
+    min-height: 280px;
 }
 
 /* Extra separation between the tool card and the ad below it,
@@ -1392,6 +1412,13 @@ tbody tr:hover {
 
     .ad-container-section {
         margin: 0 auto 14px;
+    }
+
+    /* Mobile responsive units land at 300x250 far more often than desktop,
+       so reserve less here and waste less screen when a slot goes unfilled */
+    .ad-container .adsbygoogle,
+    .ad-container-section .adsbygoogle {
+        min-height: 250px;
     }
 
     /* Stats */
