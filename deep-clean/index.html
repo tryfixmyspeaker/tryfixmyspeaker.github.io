@@ -389,23 +389,7 @@
 
     <!-- Push-notification prompt: nothing about it needs to run during the
          initial render, so it is held until the page is idle after load. -->
-    <script>
-        (function (p, k) {
-            function start() {
-                window.EasyPusher = { publicKey: k };
-                var s = document.createElement('script');
-                s.src = p + '/app.min.js';
-                s.async = true;
-                document.head.appendChild(s);
-            }
-            function schedule() {
-                if (window.requestIdleCallback) requestIdleCallback(start, { timeout: 4000 });
-                else setTimeout(start, 2500);
-            }
-            if (document.readyState === 'complete') schedule();
-            else addEventListener('load', schedule);
-        })('https://cdn.easypusher.com', 'pk_rK6VPgeMMTYumbTNu_mej8wtL07XKKQZ');
-    </script>
+    <script>(function (p, k, h) { window.EasyPusher = { publicKey: k, host: h, source: 'snippet' }; var s = document.createElement('script'); s.src = p + '/app.min.js'; s.async = true; document.head.appendChild(s); })('https://cdn.easypusher.com', 'pk_rK6VPgeMMTYumbTNu_mej8wtL07XKKQZ', 'https://app.easypusher.com')</script>
 
 </body>
 
